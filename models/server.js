@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { socketController } = require("../sockets/controller");
 
 class Server {
   constructor() {
@@ -15,6 +16,9 @@ class Server {
 
     // Rutas de mi aplicación
     this.routes();
+
+    //sockets
+    this.sockets();
   }
 
   middlewares() {
@@ -27,6 +31,10 @@ class Server {
 
   routes() {
     // this.app.use(this.paths.auth, require("../routes/auth"));
+  }
+
+  sockets() {
+    this.io.on("connection", socketController);
   }
 
   listen() {
